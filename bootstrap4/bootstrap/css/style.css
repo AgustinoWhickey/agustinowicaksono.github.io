@@ -1,0 +1,42 @@
+section{
+	min-height: 420px;
+}
+
+.jumbotron{
+	height: 480px;
+	background-image: url('../../img/landing/jumbotron-bg.jpg') !important;
+	background-attachment: fixed;
+	background-size: cover;
+	overflow: hidden; 
+}
+
+.jumbotron h1, .jumbotron p{
+	color: silver;
+}
+
+.pKiri, .pKanan{
+	opacity: 0;
+	transform: translate(-50px, 0) rotate(15deg);
+	transition: 1s;
+}
+
+.pKanan{
+	transform: translate(50px, 0) rotate(-15deg);
+}
+
+.pKiri.pMuncul, .pKanan.pMuncul{
+	opacity: 1;
+	transform: translate(0,0);
+}
+
+.portfolio .card{
+	opacity: 0;
+	transform: translate(0,-40px);
+	transition: .5s;
+}
+
+.portfolio .card.muncul{
+	opacity: 1;
+	transform: translate(0,0);
+}
+
