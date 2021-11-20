@@ -143,6 +143,10 @@
             </ul>
           </div>
           <div class="col-md-6">
+            <div class="alert alert-success alert-dismissible fade show d-none" role="alert">
+              <strong>Terima Kasih!</strong> Pesan Anda sudah kami terima.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <form name="submit-to-google-sheet">
               <div class="form-group">
                 <label for="nama">Nama</label>
@@ -156,7 +160,11 @@
                 <label for="pesan">Pesan</label>
                 <textarea name="" id="pesan" rows="8" class="form-control" name="pesan"></textarea> 
               </div>
-              <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+              <button type="submit" class="btn btn-primary btn-kirim d-none">Kirim Pesan</button>
+              <button class="btn btn-primary btn-loading" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
             </form>
           </div>
         </div>
@@ -180,11 +188,22 @@
     <script>
       const scriptURL = 'https://script.google.com/macros/s/AKfycbwFWOErhQ6lDO7ttIZvs6kSDA75Oe06gRG0xjNzkDST61WfVBZBXmMK_ir5pGNDzW4W/exec';
       const form = document.forms['submit-to-google-sheet'];
+      const btnKirim = document.querySelector('.btn-kirim');
+      const btnLoading = document.querySelector('.btn-loading');
+      const alertSuccess = document.querySelector('.alert-dismissible');
+
+      btnLoading.classList.toggle('d-none');
+      btnKirim.classList.toggle('d-none');
 
       form.addEventListener('submit', e => {
         e.preventDefault()
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-          .then(response => console.log('Success!', response))
+          .then(response => {
+            btnLoading.classList.toggle('d-none');
+            btnKirim.classList.toggle('d-none');
+            alertSuccess.classList.toggle('d-none');
+            console.log('Success!', response);
+          })
           .catch(error => console.error('Error!', error.message))
       });
     </script>
